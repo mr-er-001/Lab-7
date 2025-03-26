@@ -1,27 +1,160 @@
 using System;
 using System.Collections.Generic;
 
+// Base class : FoodItem
+class FoodItem
+{
+   public string Name { get; set; }
+   public decimal BasePrice { get; set; }
+
+public FoodItem(string name, decimal basePrice)
+{
+  Name = name;
+  Baseprice = basePrice;
+}
+
+public virtual decimal CalculateFinalPrice()
+{
+  return BasePrice;    
+}
+
+public virtual void DisplayDetails()
+{
+  Console.WriteLine($"{Name}: ${CalculateFinalPrice():F2}");
+}
+}
+// Derived Classes
+class FastFood : FoodItem
+{
+    public FastFood(string name, decimal basePrice) : base(name, basePrice) { }
+    public override decimal CalculateFinalPrice()
+    {
+        return BasePrice * 0.9m; // 10% discount
+    }
+}
+
+class Beverage : FoodItem
+{
+    public Beverage(string name, decimal basePrice) : base(name, basePrice) { }
+    public override decimal CalculateFinalPrice()
+    {
+        return BasePrice + 2m; // $2 service charge
+    }
+}
+
+class Dessert : FoodItem
+{
+    public Dessert(string name, decimal basePrice) : base(name, basePrice) { }
+    public override decimal CalculateFinalPrice()
+    {
+        return BasePrice * 1.05m; // 5% tax
+    }
+}
+
+class Seafood : FoodItem
+{
+    public Seafood(string name, decimal basePrice) : base(name, basePrice) { }
+    public override decimal CalculateFinalPrice()
+    {
+        return BasePrice > 30 ? BasePrice * 1.15m : BasePrice; // 15% luxury tax if > $30
+    }
+}
+
+class Pizza : FoodItem
+{
+    public int Toppings { get; set; }
+    public Pizza(string name, decimal basePrice, int toppings) : base(name, basePrice)
+    {
+        Toppings = toppings;
+    }
+    public override decimal CalculateFinalPrice()
+    {
+        return BasePrice + (Toppings * 1m); // $1 per topping
+    }
+}
+
+// Base class: Employee
+class Employee
+{
+    public string Name { get; set; }
+    public decimal BaseSalary { get; set; }
+
+    public Employee(string name, decimal baseSalary)
+    {
+        Name = name;
+        BaseSalary = baseSalary;
+    }
+
+    public virtual decimal CalculateSalary()
+    {
+        return BaseSalary;
+    }
+
+    public virtual void DisplayDetails()
+    {
+        Console.WriteLine($"{Name}: ${CalculateSalary():F2}");
+    }
+}
+
+// Derived Classes
+class Chef : Employee
+{
+    public Chef(string name, decimal baseSalary) : base(name, baseSalary) { }
+    public override decimal CalculateSalary()
+    {
+        return BaseSalary * 1.15m; // 15% bonus
+    }
+}
+
+class Waiter : Employee
+{
+    public Waiter(string name, decimal baseSalary) : base(name, baseSalary) { }
+    public override decimal CalculateSalary()
+    {
+        return BaseSalary + 100m; // $100 tips
+    }
+}
+
+class Manager : Employee
+{
+    public Manager(string name, decimal baseSalary) : base(name, baseSalary) { }
+    public override decimal CalculateSalary()
+    {
+        return BaseSalary * 1.10m; // 10% profit share
+    }
+}
+
+// Main Program
 class Program
 {
     static void Main()
     {
-        List<string> householdItems = new List<string>
+        List<FoodItem> menu = new List<FoodItem>
         {
-2nd-Branch
-            "Table","AC"
-
-            "Table","Fan",
-main
-            "Chair",
-            "Lamp",
-            "Refrigerator",
-            "Television"
+            new FastFood("Burger", 5.00m),
+            new Beverage("Coffee", 3.00m),
+            new Dessert("Cake", 4.50m),
+            new Seafood("Lobster", 35.00m),
+            new Pizza("Pepperoni Pizza", 10.00m, 3)
         };
 
-        foreach (var item in householdItems)
+        Console.WriteLine("Food Items:");
+        foreach (var item in menu)
         {
-            Console.WriteLine(item);
+            item.DisplayDetails();
+        }
+
+        List<Employee> employees = new List<Employee>
+        {
+            new Chef("John", 2000m),
+            new Waiter("Emily", 1500m),
+            new Manager("Michael", 3000m)
+        };
+
+        Console.WriteLine("\nEmployees:");
+        foreach (var employee in employees)
+        {
+            employee.DisplayDetails();
         }
     }
 }
-``
