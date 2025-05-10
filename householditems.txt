@@ -1,0 +1,9 @@
+
+static List<string> householdItems = new List<string>
+{
+    "Toilet Paper",
+    "Dish Soap",
+    "Laundry Detergent",
+    "Light Bulbs",
+    "Trash Bags"
+};
