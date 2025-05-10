@@ -7,5 +7,5 @@ static List<string> householdItems = new List<string>
     "Laundry Detergent",
     "Light Bulbs",
     "Trash Bags",
-    "Baskets"
+    "Plates"
 };
